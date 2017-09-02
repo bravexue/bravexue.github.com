@@ -78,16 +78,15 @@
   
   <div class="entry">
     
-      <h1 id="C-中的模板——泛型编程"><a href="#C-中的模板——泛型编程" class="headerlink" title="C++中的模板——泛型编程"></a>C++中的模板——泛型编程</h1><h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p>C++中的模板是泛型编程的基础，通俗来说，模板声明一个通用类型，在类、函数定义中使用，在类和函数执行的时候替换成具体的类型，而类、函数中的其他语句都不变，从而达到代码多类型重用的目的。</p>
-<h3 id="函数模板说明"><a href="#函数模板说明" class="headerlink" title="函数模板说明"></a>函数模板说明</h3><p>先给一个函数定义如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 整型加法 */</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">return</span> a + b;</div><div class="line">&#125;</div><div class="line"><span class="comment">/* 浮点型加法 */</span></div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">max</span><span class="params">(<span class="keyword">double</span> a, <span class="keyword">double</span> b)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">return</span> a + b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>从上面的两个函数可以看出，除了参数和返回值的参数不一致，其他都是一样的，如果设计一种通用的类型，用于<code>max</code>函数的定义，而在调用的时候使用具体的类型替换，比如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a, b; </div><div class="line">max(a, b);</div></pre></td></tr></table></figure></p>
-<p>这样只需要定义一个函数就可以了，大大提高代码可重用性。<br>于是就出现了函数模板。</p>
-<h3 id="函数模板的语法"><a href="#函数模板的语法" class="headerlink" title="函数模板的语法"></a>函数模板的语法</h3><p>在函数定义的头部加上：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line"><span class="class"><span class="title">template</span> &lt;typename T&gt;</span></div><div class="line"><span class="class"><span class="title">template</span> &lt;class T1, class T2, ...&gt;</span></div><div class="line"><span class="class">``` </span></div><div class="line"><span class="class">函数定义中涉及到通用类型的地方，都可以使用`<span class="title">T</span>,<span class="title">T1</span>,<span class="title">T2</span>`替换。</span></div><div class="line"><span class="class">例如：</span></div><div class="line"><span class="class">```<span class="title">c</span></span></div><div class="line"><span class="class"><span class="title">template</span> &lt;class T&gt;</span></div><div class="line"><span class="class"><span class="title">T</span> <span class="title">max</span>(<span class="title">T</span> <span class="title">a</span>, <span class="title">T</span> <span class="title">b</span>)</span></div><div class="line"><span class="class">&#123;</span></div><div class="line">    <span class="keyword">return</span> a + b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="类模板的说明"><a href="#类模板的说明" class="headerlink" title="类模板的说明"></a>类模板的说明</h2>
+      <p>介绍C++泛型编程中模板的概念、语法，包括函数模板、类模板。<br>
     
   </div>
   <footer class="end-sep">
     
+      
+        <div class="alignleft">
+          <a href="/2017/09/03/C-中的模板—泛型编程/#more" class="more-link">阅读全文</a>
+        </div>
       
       
     
