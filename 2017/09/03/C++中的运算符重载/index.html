@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>C++中的运算符重载 | C&#39;est la vie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Brave Xue">
+  
+  
+    <meta name="description" content="什么是重载？什么是运算符重载？如何重载？本文慢慢道来。">
+  
+  <meta name="description" content="什么是重载？什么是运算符重载？如何重载？本文慢慢道来。">
+<meta name="keywords" content="cpp,overloading">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++中的运算符重载">
+<meta property="og:url" content="http://yoursite.com/2017/09/03/C++中的运算符重载/index.html">
+<meta property="og:site_name" content="C&#39;est la vie">
+<meta property="og:description" content="什么是重载？什么是运算符重载？如何重载？本文慢慢道来。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-28T14:53:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++中的运算符重载">
+<meta name="twitter:description" content="什么是重载？什么是运算符重载？如何重载？本文慢慢道来。">
+  
+    <link rel="alternate" href="/atom.xml" title="C&#39;est la vie" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">C&#39;est la vie</a></h1>
+    <p><a href="/">O ever youthful, O ever weeping.</a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2017/09/03/C++中的运算符重载/">
+  <time datetime="2017-09-03T02:31:58.000Z">
+    2017-09-03
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">C++中的运算符重载</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>什么是重载？什么是运算符重载？如何重载？本文慢慢道来。<br><a id="more"></a></p>
+<h2 id="重载说明"><a href="#重载说明" class="headerlink" title="重载说明"></a>重载说明</h2><p>在C语言中函数名是不能重复的，编译器会直接报错，而一个函数或方法的功能可能需要针对不同类型参数或不同参数个数，比如<code>max</code>函数就是返回最大值，可以针对2个参数、3个参数、浮点型、整型等，使用C语言实现的话，可能需要如下函数定义<code>max2</code>, <code>max3</code>, <code>max_int</code>, <code>max_double</code>，在调用的时候要针对不同的入参选择对应函数，复杂而易错。<br>在C++中支持重载，相同函数名可以具有不同的参数列表，那么只需要一个<code>max</code>函数就可以了。<br>注意：重载只针对不同的参数列表不针对返回值。</p>
+<h3 id="重载语法实例"><a href="#重载语法实例" class="headerlink" title="重载语法实例"></a>重载语法实例</h3><p>重载没有什么特殊的语法直接定义使用即可，简单实例如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">x_max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">return</span> a &gt; b ? a : b;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">x_max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span> (a &gt; b &amp;&amp; a &gt; c) &#123;</div><div class="line">        <span class="keyword">return</span> a;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (b &gt; a &amp;&amp; b &gt; c) &#123;</div><div class="line">        <span class="keyword">return</span> b;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> c;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">x_max</span><span class="params">(<span class="keyword">double</span> a, <span class="keyword">double</span> b)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">return</span> a &gt; b ? a : b;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"two int "</span> &lt;&lt; x_max(<span class="number">2</span>, <span class="number">4</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"three int "</span> &lt;&lt; x_max(<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"two double "</span> &lt;&lt; x_max(<span class="number">3.3</span>, <span class="number">3.6</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h2><p>运算符指的是<em>+-\</em>/=%-&gt;*这些，一般都有特定的含义比如加减乘除，对于加法来说，从传统含义上看，只有数值可以执行加法，在C语言中只有整型可以执行加法。<br>有些类型的一些操作有类似加法的行为，比如两个字符串连接成一个字符串，就有点像是加法，那么可以对这些类型扩展加法的概念和行为，这就是运算符重载。</p>
+<h3 id="一个实例"><a href="#一个实例" class="headerlink" title="一个实例"></a>一个实例</h3><p>对平面上的点（坐标表示）定义一个类：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> r; <span class="comment">// 横坐标</span></div><div class="line">    <span class="keyword">int</span> c; <span class="comment">// 纵坐标</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    Point(<span class="keyword">int</span> _r, <span class="keyword">int</span> _c) &#123;</div><div class="line">        r = _r;</div><div class="line">        c = _c;</div><div class="line">    &#125;    </div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>利用一个点类可以实例化两个点对象:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Point a;</div><div class="line">Point b;</div></pre></td></tr></table></figure></p>
+<p>点之间的加法定义为成员之间的加法，那么<em>a + b</em>应该返回一个点<em>c</em>：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Point c;</div><div class="line">c = a + b;</div></pre></td></tr></table></figure></p>
+<p>这样Point类型重载了加法运算符与int类型具有相同的加法操作了。</p>
+<h3 id="运算符的分类"><a href="#运算符的分类" class="headerlink" title="运算符的分类"></a>运算符的分类</h3><p>运算符除了加减乘除还有逻辑操作、函数调用、数组引用等等，一种分类是根据运算符所需要的参数个数，分为一目、二目和三目等。<br>比如加法需要两个参数，取址一个参数。</p>
+<h3 id="运算符重载的语法"><a href="#运算符重载的语法" class="headerlink" title="运算符重载的语法"></a>运算符重载的语法</h3><ul>
+<li><p>类成员函数形式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Point <span class="keyword">operator</span>+(Point &amp;a) &#123;</div><div class="line">    <span class="keyword">return</span> Point(r + a.r, c + a.c);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>类友元函数形式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">friend</span>  Point <span class="keyword">operator</span>+(Point &amp;a, Point &amp;b) &#123;</div><div class="line">    <span class="keyword">return</span> Point(a.r + b.r, a.c + b.c);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="运算符重载实例"><a href="#运算符重载实例" class="headerlink" title="运算符重载实例"></a>运算符重载实例</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> r; <span class="comment">// 横坐标</span></div><div class="line">    <span class="keyword">int</span> c; <span class="comment">// 纵坐标</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    Point(<span class="keyword">int</span> _r, <span class="keyword">int</span> _c) &#123;</div><div class="line">        r = _r;</div><div class="line">        c = _c;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 友元函数重载+入参是加法的两个参数</span></div><div class="line">    <span class="keyword">friend</span> Point <span class="keyword">operator</span>+(Point &amp;a, Point &amp;b) &#123;</div><div class="line">        <span class="keyword">return</span> Point(a.r + b.r, a.c + b.c);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 成员函数重载+默认会入参当前对象则再入参一个即可 </span></div><div class="line">    Point <span class="keyword">operator</span>+(Point &amp;a) &#123;</div><div class="line">        <span class="keyword">return</span> Point(r + a.r, c + a.c);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"("</span> &lt;&lt; r &lt;&lt; <span class="string">", "</span> &lt;&lt; c &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="function">Point <span class="title">a</span><span class="params">(<span class="number">2</span>, <span class="number">3</span>)</span></span>;</div><div class="line">    <span class="function">Point <span class="title">b</span><span class="params">(<span class="number">0</span>, <span class="number">1</span>)</span></span>;</div><div class="line">    Point c = a + b;</div><div class="line">    c.Print();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="函数调用运算符重载"><a href="#函数调用运算符重载" class="headerlink" title="函数调用运算符重载"></a>函数调用运算符重载</h3><p>一般函数调用都是使用小括号<em>fun()</em>，<em>()</em>是函数调用运算符也是支持重载的，那么如果一个类重载了<em>()</em>，执行的方式是<em>ClassObject()</em>类似函数调用的方式，重载体中的语句即函数体。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FunClass</span> &#123;</span></div><div class="line"><span class="keyword">public</span>: </div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> a &gt; b ? a : b;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    FunClass FunObj;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"FunObj: "</span> &lt;&lt; FunObj(<span class="number">3</span>, <span class="number">5</span>) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>类的函数调用重载模拟出了函数的行为，本质是类的对象，那么可以将对象作为入参，模拟函数指针的功能，这种方法比函数指针更安全简洁。</p>
+
+    
+  </div>
+  <footer>
+    
+      
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/cpp/">cpp</a>, <a class="tags-link" href="/tags/overloading/">overloading</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2017 <a href="/">Brave Xue</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>
