@@ -1,18 +1,85 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-  <title>UNIX中目录操作简易ls | C&#39;est la vie</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
-    <meta name="author" content="Brave Xue">
-  
-  
-    <meta name="description" content="UNIX环境高级编程学习，目录相关操作，shell命令ls基本功能实现。">
-  
-  <meta name="description" content="UNIX环境高级编程学习，目录相关操作，shell命令ls基本功能实现。">
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="c,unix,ls," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="UNIX环境高级编程学习，目录相关操作，shell命令ls基本功能实现。">
 <meta name="keywords" content="c,unix,ls">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UNIX中目录操作简易ls">
@@ -20,112 +87,595 @@
 <meta property="og:site_name" content="C&#39;est la vie">
 <meta property="og:description" content="UNIX环境高级编程学习，目录相关操作，shell命令ls基本功能实现。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-22T15:22:19.000Z">
+<meta property="og:updated_time" content="2017-10-22T15:38:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UNIX中目录操作简易ls">
 <meta name="twitter:description" content="UNIX环境高级编程学习，目录相关操作，shell命令ls基本功能实现。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/22/UNIX中目录操作简易ls/"/>
+
+
+
+
+
+  <title>UNIX中目录操作简易ls | C'est la vie</title>
   
-    <link rel="alternate" href="/atom.xml" title="C&#39;est la vie" type="application/atom+xml">
-  
-  
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
+
+
+
+
+
+
+
+
 </head>
 
-<body>
-  <div class="wrapper">
-    <header id="header">
-  <div class="title">
-    <h1><a href="/">C&#39;est la vie</a></h1>
-    <p><a href="/">O ever youthful, O ever weeping.</a></p>
-  </div>
-  <nav class="nav">
-    <ul>
-      
-        <li><a href="/">Home</a></li>
-      
-        <li><a href="/archives">Archives</a></li>
-      
-      
-        <li><a href="/atom.xml">RSS</a></li>
-      
-    </ul>
-    <div class="clearfix"></div>
-  </nav>
-  <div class="clearfix"></div>
-</header>
-    <div class="content"><article class="post">
-  <header>
-    
-      <div class="icon"></div>
-      <a href="/2017/10/22/UNIX中目录操作简易ls/">
-  <time datetime="2017-10-22T14:59:43.000Z">
-    2017-10-22
-  </time>
-</a>
-    
-    
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
   
-    <h1 class="title">UNIX中目录操作简易ls</h1>
+  
+    
   
 
-  </header>
-  
-  <div class="entry">
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
     
-      <p>UNIX环境高级编程学习，目录相关操作，shell命令ls基本功能实现。<br><a id="more"></a></p>
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">C'est la vie</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">O ever youthful, O ever weeping.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/UNIX中目录操作简易ls/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Brave Xue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="C'est la vie">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">UNIX中目录操作简易ls</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-22T22:59:43+08:00">
+                2017-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>UNIX环境高级编程学习，目录相关操作，shell命令ls基本功能实现。<br><a id="more"></a></p>
 <h2 id="shell命令ls简易实现"><a href="#shell命令ls简易实现" class="headerlink" title="shell命令ls简易实现"></a>shell命令ls简易实现</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;dirent.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    DIR *dir;</div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dirent</span> *<span class="title">dirp</span>;</span></div><div class="line"></div><div class="line">    <span class="comment">/* 打开一个目录文件返回目录结构体 */</span></div><div class="line">    <span class="keyword">if</span> ((dir = opendir(<span class="string">"/Users"</span>)) == <span class="literal">NULL</span>)</div><div class="line">    &#123; </div><div class="line">        <span class="built_in">printf</span>(<span class="string">"Dirent Open Error!\n"</span>);</div><div class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/* 循环读取目录中的目录项 */</span></div><div class="line">    <span class="keyword">while</span> ((dirp = readdir(dir)) != <span class="literal">NULL</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"Name: %s\n"</span>, dirp-&gt;d_name);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    closedir(dir);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>结构体和接口都定义在<code>dirent.h</code>，流程与文件操作相似：打开文件、读取内容。</p>
 <h2 id="目录和目录项结构体"><a href="#目录和目录项结构体" class="headerlink" title="目录和目录项结构体"></a>目录和目录项结构体</h2><p>目录操作的结构和接口都定义在<em>dirent.h</em>，目录结构<em>DIR</em>如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* structure describing an open directory. */</span></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></div><div class="line">	<span class="keyword">int</span>	__dd_fd;	<span class="comment">/* file descriptor associated with directory */</span></div><div class="line">	<span class="keyword">long</span>	__dd_loc;	<span class="comment">/* offset in current buffer */</span></div><div class="line">	<span class="keyword">long</span>	__dd_size;	<span class="comment">/* amount of data returned */</span></div><div class="line">	<span class="keyword">char</span>	*__dd_buf;	<span class="comment">/* data buffer */</span></div><div class="line">	<span class="keyword">int</span>	__dd_len;	<span class="comment">/* size of data buffer */</span></div><div class="line">	<span class="keyword">long</span>	__dd_seek;	<span class="comment">/* magic cookie returned */</span></div><div class="line">	<span class="keyword">long</span>	__dd_rewind;	<span class="comment">/* magic cookie for rewinding */</span></div><div class="line">	<span class="keyword">int</span>	__dd_flags;	<span class="comment">/* flags for readdir */</span></div><div class="line">	<span class="keyword">__darwin_pthread_mutex_t</span> __dd_lock; <span class="comment">/* for thread locking */</span></div><div class="line">	<span class="class"><span class="keyword">struct</span> _<span class="title">telldir</span> *__<span class="title">dd_td</span>;</span> <span class="comment">/* telldir position recording */</span></div><div class="line">&#125; DIR;</div></pre></td></tr></table></figure></p>
-<p>DIR类似FILE结构，表示目录文件，其中含有目录项，可以是目录或文件，目录项的结构如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dirent</span>   </span></div><div class="line"><span class="class">&#123;</span>   </div><div class="line">　　<span class="keyword">long</span> d_ino;</div><div class="line">    <span class="keyword">off_t</span> d_off;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> d_reclen;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> d_type;</div><div class="line">    <span class="keyword">char</span> d_name[NAME_MAX+<span class="number">1</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>DIR</code>类似<code>FILE</code>结构，表示目录文件，其中含有目录项，可以是目录或文件，目录项的结构如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dirent</span>   </span></div><div class="line"><span class="class">&#123;</span>   </div><div class="line">　　<span class="keyword">long</span> d_ino;</div><div class="line">    <span class="keyword">off_t</span> d_off;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> d_reclen;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> d_type;</div><div class="line">    <span class="keyword">char</span> d_name[NAME_MAX+<span class="number">1</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>目录项可以是目录也可以是一个文件，其中含有最简的信息，更详细的信息在<em>struct stat</em>中。</p>
 <h2 id="目录操作接口"><a href="#目录操作接口" class="headerlink" title="目录操作接口"></a>目录操作接口</h2><p>所有的接口都是针对着两个结构体操作：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function">DIR *<span class="title">opendir</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *)</span></span>; <span class="comment">//打开目录，参数目录名，返回目录结构体</span></div><div class="line"><span class="function">struct dirent *<span class="title">readdir</span><span class="params">(DIR *dp)</span></span>; <span class="comment">//读取目录，参数目录结构，返回目录项结构</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">closedir</span><span class="params">(DIR *dp)</span></span>; <span class="comment">//关闭目录</span></div></pre></td></tr></table></figure></p>
 
+      
+    </div>
     
-  </div>
-  <footer>
     
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c</a>
+          
+            <a href="/tags/unix/" rel="tag"># unix</a>
+          
+            <a href="/tags/ls/" rel="tag"># ls</a>
+          
+        </div>
+      
+
       
       
-  <div class="tags">
-    <a class="tags-link" href="/tags/c/">c</a>, <a class="tags-link" href="/tags/ls/">ls</a>, <a class="tags-link" href="/tags/unix/">unix</a>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/22/UNIX中fork-vfork子进程/" rel="next" title="UNIX中fork/vfork子进程">
+                <i class="fa fa-chevron-left"></i> UNIX中fork/vfork子进程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Brave Xue</p>
+              <p class="site-description motion-element" itemprop="description">^_^_^_^</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#shell命令ls简易实现"><span class="nav-number">1.</span> <span class="nav-text">shell命令ls简易实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录和目录项结构体"><span class="nav-number">2.</span> <span class="nav-text">目录和目录项结构体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录操作接口"><span class="nav-number">3.</span> <span class="nav-text">目录操作接口</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Brave Xue</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
 
     
-    <div class="clearfix"></div>
-  </footer>
-</article>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
 
-</div>
+    
+
   </div>
-  <footer id="footer"><div class="copyright">
+
   
-  &copy; 2017 <a href="/">Brave Xue</a>
-  
-</div>
-<div class="theme-copyright">
-  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
-   | 
-  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
-</div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-<script src="/js/scale.fix.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
 
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
-  (function($){
-    $('.fancybox').fancybox();
-  })(jQuery);
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
 
 </body>
 </html>
