@@ -10,20 +10,20 @@
     <meta name="author" content="Brave Xue">
   
   
-    <meta name="description" content="Python GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
+    <meta name="description" content="Pytho GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
   
-  <meta name="description" content="Python GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
+  <meta name="description" content="Pytho GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
 <meta name="keywords" content="python,pyqt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PyQt5由浅入深(1)开始">
 <meta property="og:url" content="http://yoursite.com/2017/09/28/PyQt5由浅入深(1)开始/index.html">
 <meta property="og:site_name" content="C&#39;est la vie">
-<meta property="og:description" content="Python GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
+<meta property="og:description" content="Pytho GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-09-29T15:39:25.000Z">
+<meta property="og:updated_time" content="2017-09-29T15:43:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PyQt5由浅入深(1)开始">
-<meta name="twitter:description" content="Python GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
+<meta name="twitter:description" content="Pytho GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
   
     <link rel="alternate" href="/atom.xml" title="C&#39;est la vie" type="application/atom+xml">
   
@@ -76,7 +76,7 @@
   
   <div class="entry">
     
-      <p>Python GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。<br>本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。<br><a id="more"></a></p>
+      <p>Pytho GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。<br>本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。<br><a id="more"></a></p>
 <h2 id="PyQt5说明"><a href="#PyQt5说明" class="headerlink" title="PyQt5说明"></a>PyQt5说明</h2><p>PyQt其实就是在Qt之上封装并提供Python接口，Qt是跨平台C++图形用户界面应用程序开发框架，Qt的所有功能原理比如独特对信号槽机制都适用PyQt，PyQt资料不足可以参考Qt。PyQt有PyQt4和PyQt5两个版本，两者不兼容，建议与时俱进直接使用QyQt5。<br>本系列范例平台：macOS, Python3.6, PyQt5.9。</p>
 <h2 id="PyQt5的基本框架"><a href="#PyQt5的基本框架" class="headerlink" title="PyQt5的基本框架"></a>PyQt5的基本框架</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="keyword">from</span> PyQt5 <span class="keyword">import</span> QtWidgets</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    app = QtWidgets.QApplication(sys.argv)</div><div class="line">    win = QtWidgets.QWidget()</div><div class="line">    win.show()</div><div class="line">    sys.exit(app.exec_())</div></pre></td></tr></table></figure>
 <p>运行Python可以发现弹出一个窗口。</p>

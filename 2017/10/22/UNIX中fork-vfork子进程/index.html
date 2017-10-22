@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>UNIX中fork/vfork子进程 | C&#39;est la vie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Brave Xue">
+  
+  
+    <meta name="description" content="UNIX环境高级编程学习，进程控制fork/vfork.">
+  
+  <meta name="description" content="UNIX环境高级编程学习，进程控制fork/vfork.">
+<meta name="keywords" content="c,unix,fork">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UNIX中fork&#x2F;vfork子进程">
+<meta property="og:url" content="http://yoursite.com/2017/10/22/UNIX中fork-vfork子进程/index.html">
+<meta property="og:site_name" content="C&#39;est la vie">
+<meta property="og:description" content="UNIX环境高级编程学习，进程控制fork/vfork.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-22T05:07:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UNIX中fork&#x2F;vfork子进程">
+<meta name="twitter:description" content="UNIX环境高级编程学习，进程控制fork/vfork.">
+  
+    <link rel="alternate" href="/atom.xml" title="C&#39;est la vie" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">C&#39;est la vie</a></h1>
+    <p><a href="/">O ever youthful, O ever weeping.</a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2017/10/22/UNIX中fork-vfork子进程/">
+  <time datetime="2017-10-22T04:26:37.000Z">
+    2017-10-22
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">UNIX中fork/vfork子进程</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>UNIX环境高级编程学习，进程控制fork/vfork.<br><a id="more"></a></p>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>简单来说，进程是独立的执行实体，拥有自己的资源。<br>在类UNIX系统中，进程是用唯一的非负整型表示，是为进程ID，用于各种接口中操作进程.<br>定义如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"><span class="keyword">pid_t</span> pid;</div><div class="line"><span class="keyword">pid_t</span> getpid(<span class="keyword">void</span>); <span class="comment">/* 返回进程ID */</span></div><div class="line"><span class="keyword">pid_t</span> getppid(<span class="keyword">void</span>); <span class="comment">/* 返回父进程ID */</span></div></pre></td></tr></table></figure></p>
+<h2 id="创建进程fork"><a href="#创建进程fork" class="headerlink" title="创建进程fork"></a>创建进程fork</h2><p>现有的进程可以通过fork创建一个新的进程。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"><span class="keyword">pid_t</span> fork(<span class="keyword">void</span>); <span class="comment">/* 父进程返回子进程的ID, 子进程返回0，出错返回-1 */</span></div></pre></td></tr></table></figure></p>
+<p>fork会复制父进程的所有资源，除了共享代码段，其他都不共享。<br>然后两个进程都会继续执行下面的指令。</p>
+<h2 id="fork实例"><a href="#fork实例" class="headerlink" title="fork实例"></a>fork实例</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> TestValue = <span class="number">11</span>;</div><div class="line">    <span class="keyword">pid_t</span> pid = fork();</div><div class="line">    <span class="keyword">if</span> (pid &lt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"Error\n"</span>);</div><div class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</div><div class="line">        TestValue = <span class="number">22</span>; <span class="comment">/* child pid */</span></div><div class="line">        <span class="built_in">printf</span>(<span class="string">"Child PID = %d, TestValue = %d\n"</span>, getpid(), TestValue);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"Parent PID = %d, TestValue = %d\n"</span>, getpid(), TestValue);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>执行结果如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Parent PID = <span class="number">2780</span>, TestValue = <span class="number">11</span></div><div class="line">Child PID = <span class="number">2781</span>, TestValue = <span class="number">22</span></div></pre></td></tr></table></figure></p>
+<p>从上面可以看出，子进程和父进程都继续执行，而且变量的都改变了。<br>不过子进程和父进程谁先执行谁后执行这个不确定，上面运行的结果是父进程先执行。</p>
+<h2 id="相似而不相同的vfork"><a href="#相似而不相同的vfork" class="headerlink" title="相似而不相同的vfork"></a>相似而不相同的vfork</h2><p>vfork与fork功能基本相似，但是有一些相异的地方。<br>vfork的目的是分出一个进程执行新的程序(通过exec)，不需要父进程的地址空间，因此不需要完全复制父进程的空间给子进程，提高效率。<br>一般vfork一个子进程之后会执行exec,exit等，在这之前会先在父进程中运行，所以可能修改父进程中的数据，引起不可预料的后果。<br>vfork一般保证子进程先执行，调用exec等之后，父进程才执行。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Child PID = <span class="number">2940</span>, TestValue = <span class="number">22</span></div><div class="line">Parent PID = <span class="number">2939</span>, TestValue = <span class="number">22</span></div></pre></td></tr></table></figure></p>
+<p>将上文中实例替换vfork结果显示，先执行child，修改了父进程中的值。<br>因此使用vfork时需要格外小心。</p>
+
+    
+  </div>
+  <footer>
+    
+      
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/c/">c</a>, <a class="tags-link" href="/tags/fork/">fork</a>, <a class="tags-link" href="/tags/unix/">unix</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2017 <a href="/">Brave Xue</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

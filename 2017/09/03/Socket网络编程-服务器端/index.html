@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>Socket网络编程-服务器端 | C&#39;est la vie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Brave Xue">
+  
+  
+    <meta name="description" content="网络编程是服务端和客户端的通信，使用socket作为管道。">
+  
+  <meta name="description" content="网络编程是服务端和客户端的通信，使用socket作为管道。">
+<meta name="keywords" content="socket,c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Socket网络编程-服务器端">
+<meta property="og:url" content="http://yoursite.com/2017/09/03/Socket网络编程-服务器端/index.html">
+<meta property="og:site_name" content="C&#39;est la vie">
+<meta property="og:description" content="网络编程是服务端和客户端的通信，使用socket作为管道。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-22T05:06:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Socket网络编程-服务器端">
+<meta name="twitter:description" content="网络编程是服务端和客户端的通信，使用socket作为管道。">
+  
+    <link rel="alternate" href="/atom.xml" title="C&#39;est la vie" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">C&#39;est la vie</a></h1>
+    <p><a href="/">O ever youthful, O ever weeping.</a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2017/09/03/Socket网络编程-服务器端/">
+  <time datetime="2017-09-03T01:27:53.000Z">
+    2017-09-03
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">Socket网络编程-服务器端</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>网络编程是服务端和客户端的通信，使用socket作为管道。<br><a id="more"></a></p>
+<h2 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<h2 id="网络地址结构"><a href="#网络地址结构" class="headerlink" title="网络地址结构"></a>网络地址结构</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> &#123;</span></div><div class="line">    <span class="keyword">sa_family_t</span>    sin_family; <span class="comment">/* address family: AF_INET */</span></div><div class="line">    <span class="keyword">in_port_t</span>      sin_port;   <span class="comment">/* port in network byte order */</span></div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span>   <span class="comment">/* internet address */</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">/* Internet address. */</span></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> &#123;</span></div><div class="line">    <span class="keyword">uint32_t</span>       s_addr;     <span class="comment">/* address in network byte order */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="网络服务端"><a href="#网络服务端" class="headerlink" title="网络服务端"></a>网络服务端</h2><p>int socket(int domain, int type, int protocol);<br>声明一个地址族类型<br>domain: 协议类型AF_INET、AF_INET6、AF_LOCAL<br>type: socket类型SOCK_STREAM、SOCK_DGRAM、SOCK_RAW、SOCK_PACKET、SOCK_SEQPACKET<br>protocol：协议IPPROTO_TCP、IPPTOTO_UDP、IPPROTO_SCTP、IPPROTO_TIPC</p>
+<p>int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);<br>把一个具体的地址族与socket绑定<br>struct sockaddr其中有协议族，端口号，IP地址<br>（htonl将IP主机字节转成网络字节32位的）<br>（htons是将整型变量从主机字节顺序转变成网络字节顺序16位的）<br>（INADDR_ANY代表本机IP）</p>
+<p>int listen(int sockfd, int backlog);<br>服务端监听来自客户端的连接请求<br>backlog监听到的最大链接请求数</p>
+<p>int accept(int sockfd, struct sockaddr <em>addr, socklen_t </em>addrlen);<br>接收到一个连接请求，并返回客户端的socket</p>
+<p>recv<br>send</p>
+
+    
+  </div>
+  <footer>
+    
+      
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/c/">c</a>, <a class="tags-link" href="/tags/socket/">socket</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2017 <a href="/">Brave Xue</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>
