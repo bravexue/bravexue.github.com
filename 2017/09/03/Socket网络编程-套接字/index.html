@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="python,pyqt," />
+  <meta name="keywords" content="socket,c," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Pytho GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
-<meta name="keywords" content="python,pyqt">
+<meta name="description" content="网络编程是服务端和客户端的通信，使用socket作为管道。">
+<meta name="keywords" content="socket,c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PyQt5由浅入深(1)开始">
-<meta property="og:url" content="http://yoursite.com/2017/09/28/PyQt5由浅入深(1)开始/index.html">
+<meta property="og:title" content="Socket网络编程-套接字">
+<meta property="og:url" content="http://yoursite.com/2017/09/03/Socket网络编程-套接字/index.html">
 <meta property="og:site_name" content="C&#39;est la vie">
-<meta property="og:description" content="Pytho GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
+<meta property="og:description" content="网络编程是服务端和客户端的通信，使用socket作为管道。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-09-29T15:43:30.000Z">
+<meta property="og:updated_time" content="2017-10-24T16:16:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PyQt5由浅入深(1)开始">
-<meta name="twitter:description" content="Pytho GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。">
+<meta name="twitter:title" content="Socket网络编程-套接字">
+<meta name="twitter:description" content="网络编程是服务端和客户端的通信，使用socket作为管道。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/28/PyQt5由浅入深(1)开始/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/03/Socket网络编程-套接字/"/>
 
 
 
 
 
-  <title>PyQt5由浅入深(1)开始 | C'est la vie</title>
+  <title>Socket网络编程-套接字 | C'est la vie</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/28/PyQt5由浅入深(1)开始/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/03/Socket网络编程-套接字/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Brave Xue">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PyQt5由浅入深(1)开始</h1>
+          <h1 class="post-title" itemprop="name headline">Socket网络编程-套接字</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-28T22:53:09+08:00">
-                2017-09-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-03T09:27:53+08:00">
+                2017-09-03
               </time>
             
 
@@ -281,9 +281,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/09/28/PyQt5由浅入深(1)开始/#comments" itemprop="discussionUrl">
+                <a href="/2017/09/03/Socket网络编程-套接字/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/09/28/PyQt5由浅入深(1)开始/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/09/03/Socket网络编程-套接字/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -311,11 +311,13 @@
       
 
       
-        <p>Pytho GUI开发可用的第三方库众多，其中比较流行有大名鼎鼎的PyQt和wxPython，这两个都是跨平台开源库，拥有众多的用户。<br>本系列详细整理了PyQt功能实现，为初学者提供入门和深入指导。<br><a id="more"></a></p>
-<h2 id="PyQt5说明"><a href="#PyQt5说明" class="headerlink" title="PyQt5说明"></a>PyQt5说明</h2><p>PyQt其实就是在Qt之上封装并提供Python接口，Qt是跨平台C++图形用户界面应用程序开发框架，Qt的所有功能原理比如独特对信号槽机制都适用PyQt，PyQt资料不足可以参考Qt。PyQt有PyQt4和PyQt5两个版本，两者不兼容，建议与时俱进直接使用QyQt5。<br>本系列范例平台：macOS, Python3.6, PyQt5.9。</p>
-<h2 id="PyQt5的基本框架"><a href="#PyQt5的基本框架" class="headerlink" title="PyQt5的基本框架"></a>PyQt5的基本框架</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="keyword">from</span> PyQt5 <span class="keyword">import</span> QtWidgets</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    app = QtWidgets.QApplication(sys.argv)</div><div class="line">    win = QtWidgets.QWidget()</div><div class="line">    win.show()</div><div class="line">    sys.exit(app.exec_())</div></pre></td></tr></table></figure>
-<p>运行Python可以发现弹出一个窗口。</p>
-<p>## </p>
+        <p>网络编程是服务端和客户端的通信，使用socket作为管道。<br><a id="more"></a></p>
+<h2 id="Socket服务端实例"><a href="#Socket服务端实例" class="headerlink" title="Socket服务端实例"></a>Socket服务端实例</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> sockfd;</div><div class="line">    sockfd = socket(AF_INET, SOCK_DGRAM, <span class="number">0</span>);</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> <span class="title">addr</span>;</span></div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">addrin</span>;</span></div><div class="line"></div><div class="line">    close(sockfd);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="网络地址结构"><a href="#网络地址结构" class="headerlink" title="网络地址结构"></a>网络地址结构</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 通用的地址结构，可被其他地址强转 */</span></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> &#123;</span></div><div class="line">	<span class="keyword">__uint8_t</span>	sa_len;		<span class="comment">/* total length */</span></div><div class="line">	<span class="keyword">sa_family_t</span>	sa_family;	<span class="comment">/* [XSI] address family */</span></div><div class="line">	<span class="keyword">char</span>		sa_data[<span class="number">14</span>];	<span class="comment">/* [XSI] addr value (actually larger) */</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">/* 因特网IPv4套接字地址结构 */</span></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> &#123;</span></div><div class="line">	<span class="keyword">__uint8_t</span>	sin_len;</div><div class="line">	<span class="keyword">sa_family_t</span>	sin_family;</div><div class="line">	<span class="keyword">in_port_t</span>	sin_port;</div><div class="line">	<span class="class"><span class="keyword">struct</span>	<span class="title">in_addr</span> <span class="title">sin_addr</span>;</span></div><div class="line">	<span class="keyword">char</span>		sin_zero[<span class="number">8</span>];</div><div class="line">&#125;;</div><div class="line"><span class="comment">/* Internet address (a structure for historical reasons) */</span></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> &#123;</span></div><div class="line">	<span class="keyword">in_addr_t</span> s_addr;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="网络套接字描述符"><a href="#网络套接字描述符" class="headerlink" title="网络套接字描述符"></a>网络套接字描述符</h2><p>使用如下接口创建一个套接字：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</div></pre></td></tr></table></figure></p>
+<p>domain   ：地址族<code>AF_INET</code>、<code>AF_INET6</code>、<code>AF_LOCAL</code>等。<br>type     ：套接字类型<code>SOCK_STREAM</code>、<code>SOCK_DGRAM</code>、<code>SOCK_RAW</code>、<code>SOCK_PACKET</code>、<code>SOCK_SEQPACKET</code>等。<br>protocol ：协议<code>IPPROTO_TCP</code>、<code>IPPTOTO_UDP</code>、<code>IPPROTO_SCTP</code>、<code>IPPROTO_TIPC</code>等。<br>protocol为0表示domain和type下默认的协议。</p>
+<h2 id="字节序"><a href="#字节序" class="headerlink" title="字节序"></a>字节序</h2><p>不同计算机系统可能采用不同的大小端编码，网络传输规定使用大端字节序，因此需要转换。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">uint32_t</span> htonl(<span class="keyword">uint32_t</span> hostint32);</div><div class="line"><span class="keyword">uint16_t</span> htons(<span class="keyword">uint16_t</span> hostint16);</div><div class="line"><span class="keyword">uint32_t</span> ntohl(<span class="keyword">uint32_t</span> netint32);</div><div class="line"><span class="keyword">uint16_t</span> ntohs(<span class="keyword">uint16_t</span> netint16);</div></pre></td></tr></table></figure></p>
+<h2 id="地址格式"><a href="#地址格式" class="headerlink" title="地址格式"></a>地址格式</h2><p>为了适配任何通信场景，定义了通用的地址<code>struct sockaddr</code>，套接字接口都是使用该结构作为参数。<br>调用者需要将特定场景的结构强转成通用的结构。<br>因特网的地址结构为<code>struct sockaddr_in</code>,其中主要包含了2部分：IP地址和进程端口，这样可以唯一标识通信的两端。</p>
 
       
     </div>
@@ -333,9 +335,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/python/" rel="tag"># python</a>
+            <a href="/tags/socket/" rel="tag"># socket</a>
           
-            <a href="/tags/pyqt/" rel="tag"># pyqt</a>
+            <a href="/tags/c/" rel="tag"># c</a>
           
         </div>
       
@@ -348,8 +350,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/03/C++中的运算符重载/" rel="next" title="C++中的运算符重载">
-                <i class="fa fa-chevron-left"></i> C++中的运算符重载
+              <a href="/2017/09/03/C++中的模板—泛型编程/" rel="next" title="C++中的模板—泛型编程">
+                <i class="fa fa-chevron-left"></i> C++中的模板—泛型编程
               </a>
             
           </div>
@@ -358,8 +360,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/22/UNIX中fork-vfork子进程/" rel="prev" title="UNIX中fork/vfork子进程">
-                UNIX中fork/vfork子进程 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/03/C++中的运算符重载/" rel="prev" title="C++中的运算符重载">
+                C++中的运算符重载 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -509,7 +511,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PyQt5说明"><span class="nav-number">1.</span> <span class="nav-text">PyQt5说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PyQt5的基本框架"><span class="nav-number">2.</span> <span class="nav-text">PyQt5的基本框架</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket服务端实例"><span class="nav-number">1.</span> <span class="nav-text">Socket服务端实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络地址结构"><span class="nav-number">2.</span> <span class="nav-text">网络地址结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络套接字描述符"><span class="nav-number">3.</span> <span class="nav-text">网络套接字描述符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字节序"><span class="nav-number">4.</span> <span class="nav-text">字节序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地址格式"><span class="nav-number">5.</span> <span class="nav-text">地址格式</span></a></li></ol></div>
             
 
           </div>
@@ -679,9 +681,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2017/09/28/PyQt5由浅入深(1)开始/';
-          this.page.identifier = '2017/09/28/PyQt5由浅入深(1)开始/';
-          this.page.title = 'PyQt5由浅入深(1)开始';
+          this.page.url = 'http://yoursite.com/2017/09/03/Socket网络编程-套接字/';
+          this.page.identifier = '2017/09/03/Socket网络编程-套接字/';
+          this.page.title = 'Socket网络编程-套接字';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://bravexue.disqus.com/embed.js';
